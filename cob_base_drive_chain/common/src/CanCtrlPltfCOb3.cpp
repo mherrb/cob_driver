@@ -914,7 +914,8 @@ int CanCtrlPltfCOb3::evalCanBuffer()
 
 		if (bRet == false)
 		{
-			std::cout << "evalCanBuffer(): Received CAN_Message with unknown identifier " << m_CanMsgRec.m_iID << std::endl;
+		  printf("evalCanBuffer(): Received CAN_Message with unknown identifier %x\n", m_CanMsgRec.m_iID);
+		  //std::cout << "evalCanBuffer(): Received CAN_Message with unknown identifier " << m_CanMsgRec.m_iID << std::endl;
 		}		
 	};
 	
@@ -1198,6 +1199,7 @@ bool CanCtrlPltfCOb3::initPltf()
 			bHomingOk = false;
 		}
 	}
+	std::cout << "Wheels homed " << bHomingOk << std::endl;
 	return (bHomingOk);
 }
 
