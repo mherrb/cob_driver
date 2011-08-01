@@ -864,15 +864,20 @@ int main(int argc, char** argv)
 	// specify looprate of control-cycle
  	ros::Rate loop_rate(100); // Hz 
 
+	nodeClass.m_bisInitialized = nodeClass.initDrives();
+
 	while(nodeClass.n.ok())
 	{
 #ifdef __SIM__
 
 #else
+	  if(nodeClass.m_bisInitialized) {
+	    nodeClass.m_CanCtrlPltf->evalCanBuffer();
+	    //std::cout << "evalCanBuffer\n";
+	  }
 		//Read-out of CAN buffer is only necessary during read-out of Elmo Recorder		
 		if( nodeClass.m_bReadoutElmo ) 
 		{
-			if(nodeClass.m_bisInitialized) nodeClass.m_CanCtrlPltf->evalCanBuffer();
 			if(nodeClass.m_CanCtrlPltf->ElmoRecordings(100, 0, "") == 0)
 			{
 				nodeClass.m_bReadoutElmo = false;
